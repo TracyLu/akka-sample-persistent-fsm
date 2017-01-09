@@ -70,11 +70,16 @@ class Generator extends PersistentFSM[State, Data, DomainEvt] {
 		case Event(Reset, _) => goto(Idle) applying ResetEvt() replying "RESET COMPLETED"
 	}
 
+	override def onRecoveryCompleted() = {
+		super.onRecoveryCompleted()
+		println("Recovery Completed." + stateName )
+	}
+
 	initialize()
 
 }
 
-object PersistentFSMExample extends App {
+object PersistentFSMExample { /*extends App {
 
 	val system = ActorSystem()
 
@@ -95,5 +100,5 @@ object PersistentFSMExample extends App {
 
 	Thread.sleep(3000)
 	system.terminate()
-
+*/
 }
